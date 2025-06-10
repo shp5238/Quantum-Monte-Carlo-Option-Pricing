@@ -1,0 +1,62 @@
+### Code: Quantum Monte Carlo Option Pricing using ANU QRNG
+
+add to project goals
+- compare classical QRNG Monte Carlo with a Quantum Aplitude Estimation (QAE)
+
+#### Installation
+!pip install qiskit qiskit-finance
+!pip install qiskit 
+!pip install qiskit-aer qiskit-algorithms qiskit-finance
+
+from qiskit.primitives import Sampler
+from qiskit_algorithms import IterativeAmplitudeEstimation
+from qiskit_finance.applications.estimation import EuropeanCallExpectedValue
+from qiskit_finance.circuit.library import NormalDistribution
+from qiskit.circuit.library import LinearAmplitudeFunction
+from qiskit.utils import algorithm_globals
+
+
+
+# Set random seed
+algorithm_globals.random_seed = 42
+
+# Define normal distribution parameters for the uncertainty model
+num_qubits = [3]
+bounds = [(0, 7)]
+mu = [1.0]
+sigma = [1.0]
+uncertainty_model = NormalDistribution(num_qubits, mu, sigma, bounds)
+
+# Define payoff function
+strike_price = 2
+c_approx = 0.25  # approximation factor
+european_call = EuropeanCallExpectedValue(
+    num_state_qubits=sum(num_qubits),
+    strike_price=strike_price,
+    rescaling_factor=0.25,
+    bounds=bounds
+)
+
+# Define sampler and amplitude estimation
+sampler = Sampler()
+iae = IterativeAmplitudeEstimation(
+    epsilon_target=0.01,
+    alpha=0.05,
+    sampler=sampler
+)
+
+# Run the algorithm
+estimation_problem = european_call.to_estimation_problem()
+result = iae.estimate(estimation_problem)
+
+# Print result
+print("Estimated value:", result.estimation)
+
+
+testing: 
+import qiskit
+print(qiskit.__version__)
+
+Uninstallation: 
+!pip uninstall qiskit
+!pip list | grep qiskit
