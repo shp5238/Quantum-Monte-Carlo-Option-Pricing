@@ -1,7 +1,7 @@
 
 # Quantum Monte Carlo for Option Pricing
 
-Hello! My name is Shreya. I built this project to explore the use of quantum computing techniques to simulate randomness in financial modelling, specifically for pricing call options. I will compare the classical Monte Carlo method to a quantum-enhanced approach that uses quantum-generated random numbers. 
+Hello! My name is Shreya. I built this project to explore the use of quantum computing techniques to simulate randomness in financial modeling, specifically for pricing call options. I will compare the classical Monte Carlo method to a quantum-enhanced approach that uses quantum-generated random numbers. 
 
 By doing this, I hope to understand how quantum technology can be used in financial applications, especially in contexts where randomness and simulation are core components. 
 
